@@ -1,0 +1,30 @@
+image: shivammathur/node-php:latest
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Build PHP & Node Assets
+          caches:
+            - composer
+            - node
+          script:
+            # 1. Build Vite assets (CSS/JS compiling)
+            - npm install
+            - npm run build
+            # 2. Install PHP Dependencies
+            - composer install --no-dev --optimize-autoloader
+          artifacts:
+            - public/build/** # Keep Vite compiled assets
+            - vendor/**       # Keep PHP dependencies for deployment
+      - step:
+          name: Deploy to Hostinger via FTP
+          script:
+            - pipe: atlassian/ftp-deploy:0.7.1
+              variables:
+                USER: $FTP_USERNAME
+                PASSWORD: $FTP_PASSWORD
+                SERVER: $FTP_SERVER
+                LOCAL_PATH: '.'
+                REMOTE_PATH: '/domains/yourdomain.com/movesmooth/' # Change this to your actual folder path in Hostinger
+                EXTRA_ARGS: '--exclude=.git/ --exclude=node_modules/ --exclude=tests/ --exclude=.env'

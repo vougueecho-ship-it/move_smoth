@@ -1,0 +1,24 @@
+# MoveSmooth
+
+> Modern and premium relocation services platform designed to offer stress-free local and long-distance moving solutions.
+
+## Main Links
+- [Home](https://movesmooth.com/): Get free quotes and browse state-specific top movers.
+- [About Us](https://movesmooth.com/about): Learn more about the MoveSmooth team and relocate vetted expertise.
+- [Contact](https://movesmooth.com/contact): Get in touch with relocation advisors.
+- [Movers](https://movesmooth.com/movers): Direct access to top-rated vetted local and long-distance moving companies.
+- [Cost Calculator](https://movesmooth.com/moving-cost-calculator): High-precision dynamic moving cost calculator.
+- [Blog](https://movesmooth.com/blog): Relocation tips, guides, and packing checklists.
+
+## Core Moving Services
+- [Local Moving](https://movesmooth.com/best-movers/local-moving-companies): Secure, vetted local movers in your city.
+- [Long Distance Moving](https://movesmooth.com/best-movers/long-distance-moving-companies): Insured cross-country moving solutions.
+- [Commercial Moving](https://movesmooth.com/best-movers/commercial-moving-companies): Efficient corporate and office relocation services.
+- [Packing Services](https://movesmooth.com/best-movers/packing-services-moving-companies): Full and partial professional packing and materials.
+- [Storage Units](https://movesmooth.com/best-movers/storage-units-moving-companies): Safe, climate-controlled temporary storage.
+- [Residential Moving](https://movesmooth.com/best-movers/residential-moving-companies): Hassle-free household and apartment moving assistance.
+
+## Key Features & Platform Strengths
+- **Vetted Directories:** Verified partner listings displaying FMCSA, BBB, and USDOT safety records alongside real customer reviews.
+- **Dynamic Quotes:** Real-time multi-step quotes matching users with trusted local relocation partners.
+- **Outfit Brand Aesthetics:** Designed with harmoniously tailored color systems, responsive cards, and premium Outfit typography.

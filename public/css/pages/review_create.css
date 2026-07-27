@@ -1,0 +1,43 @@
+.review-hero {
+    background: #f8fafc;
+    padding: 80px 0;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.search-container {
+    max-width: 700px;
+    margin: -40px auto 60px;
+    position: relative;
+    z-index: 10;
+}
+
+.company-selection-card {
+    background: white;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    padding: 30px;
+    transition: all 0.3s;
+    height: 100%;
+    text-align: center;
+}
+
+.company-selection-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);
+    border-color: var(--primary);
+}
+
+.company-logo-circle {
+    width: 80px;
+    height: 80px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-weight: 800;
+    color: var(--primary);
+    font-size: 1.5rem;
+}

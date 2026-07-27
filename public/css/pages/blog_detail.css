@@ -1,0 +1,367 @@
+/* MoveSmooth Blog Detail Stylesheet */
+
+:root {
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --secondary: #06B6D4;
+    --text-dark: #0F172A;
+    --text-muted: #475569;
+    --bg-light: #F8FAFC;
+    --border-color: #E2E8F0;
+    --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.post-header {
+    padding: 80px 0;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.post-img-hero {
+    border-radius: 32px;
+    overflow: hidden;
+    margin-top: -60px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+    margin-bottom: 60px;
+}
+
+.sidebar-author {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid #e2e8f0;
+    position: sticky;
+    top: 110px;
+}
+
+.share-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #64748b;
+    transition: all 0.3s;
+}
+
+.share-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   Article Content Styling (Applied dynamically to HTML database content)
+   ========================================================================== */
+
+.post-content {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #334155;
+}
+
+/* Headings */
+.post-content h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1E1B4B;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.post-content h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #312E81;
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+}
+
+.post-content h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1E293B;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Paragraphs & Text Elements */
+.post-content p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.post-content strong {
+    color: #1E1B4B;
+    font-weight: 700;
+}
+
+/* Lists */
+.post-content ul, .post-content ol {
+    margin-bottom: 1.75rem;
+    padding-left: 1.5rem;
+}
+
+.post-content li {
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    color: #475569;
+}
+
+/* Blockquotes */
+.post-content blockquote {
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--primary);
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.post-content blockquote p {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
+
+/* Embedded Media / Images inside Article */
+.post-content .img-fluid {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    max-height: 480px;
+}
+
+.post-content .rounded {
+    border-radius: 16px !important;
+}
+
+.post-content .shadow {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 16px -6px rgba(0, 0, 0, 0.05) !important;
+}
+
+.post-content .my-4 {
+    margin-top: 2.5rem !important;
+    margin-bottom: 2.5rem !important;
+}
+
+/* Tables (Cost Estimates) */
+.post-content .table-responsive {
+    overflow-x: auto;
+    margin: 2.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+.post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.post-content th {
+    background-color: #1E1B4B;
+    color: #ffffff;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    padding: 1rem 1.25rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.post-content td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    color: #334155;
+    background-color: #ffffff;
+}
+
+.post-content tr:last-child td {
+    border-bottom: none;
+}
+
+.post-content tr:nth-child(even) td {
+    background-color: #f8fafc;
+}
+
+/* Dynamic Checklist Callout Box */
+.post-content .checklist-box {
+    background-color: #EEF2F6;
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin: 2.5rem 0;
+    border-left: 4px solid var(--secondary);
+}
+
+.post-content .checklist-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #1E293B;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* CTA Card styling */
+.post-content .cta-card {
+    background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%);
+    border: none;
+    border-radius: 16px;
+    padding: 2.5rem;
+    color: #FFFFFF;
+    margin: 3.5rem 0;
+    box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.3);
+    text-align: center;
+}
+
+.post-content .cta-card h3 {
+    color: #FFFFFF;
+    margin-top: 0;
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.post-content .cta-card p {
+    color: #E0E7FF;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.post-content .btn-cta {
+    background-color: #FFFFFF;
+    color: var(--primary);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.post-content .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    color: var(--primary-hover);
+    background-color: #F8FAFC;
+}
+
+.post-content .cta-container {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    color: #ffffff;
+    padding: 3rem;
+    border-radius: 16px;
+    margin: 3.5rem 0;
+    text-align: center;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.post-content .cta-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.post-content .cta-container h3 {
+    color: #ffffff;
+    font-size: 1.75rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.post-content .cta-container p {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-content .btn {
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    border-radius: 50px;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.post-content .btn-primary {
+    color: #ffffff;
+    background-color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.4);
+}
+
+.post-content .btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.5);
+}
+
+/* Internal Links inside Content */
+.post-content .internal-link {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition);
+}
+
+.post-content .internal-link:hover {
+    color: var(--primary-hover);
+    border-bottom: 1px solid var(--primary-hover);
+}

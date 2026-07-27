@@ -1,0 +1,374 @@
+/* ============================================
+   Movers Directory Page — Premium Styling
+   ============================================ */
+
+.directory-hero {
+    background: linear-gradient(135deg, #0a1628 0%, #0f2b4c 100%);
+    padding: 100px 0 70px;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.directory-hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(242, 107, 58, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.directory-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.directory-hero h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.directory-hero p.lead {
+    font-family: 'Inter', sans-serif;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 650px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.breadcrumb-directory {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    margin-bottom: 18px;
+}
+
+.breadcrumb-directory a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb-directory a:hover {
+    color: #ffffff;
+}
+
+.breadcrumb-directory .sep {
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.breadcrumb-directory .current {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* State Index Navigation Bar */
+.state-index-nav {
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 20px;
+    padding: 20px 25px;
+    margin-top: -35px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(15, 43, 76, 0.05);
+}
+
+.index-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.index-letters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.letter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.letter-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(15, 43, 76, 0.1);
+}
+
+.letter-btn.disabled {
+    opacity: 0.35;
+    pointer-events: none;
+    background: #f1f5f9;
+    border-color: #f1f5f9;
+    color: #94a3b8;
+}
+
+/* Main Layout Grid */
+.directory-section {
+    padding: 70px 0;
+}
+
+.state-group-card {
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 24px;
+    padding: 35px;
+    margin-bottom: 40px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+}
+
+.state-group-card:hover {
+    box-shadow: 0 20px 30px rgba(15, 43, 76, 0.05);
+    border-color: rgba(79, 70, 229, 0.1);
+}
+
+.state-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.state-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.state-graphic-badge {
+    width: 52px;
+    height: 52px;
+    background: rgba(79, 70, 229, 0.06);
+    border: 1px solid rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.state-title-wrap h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.6rem;
+}
+
+.state-meta-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.movers-count-tag {
+    background: #f0fdf4;
+    color: #166534;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.movers-count-tag i {
+    font-size: 0.75rem;
+}
+
+.view-state-btn {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.view-state-btn:hover {
+    color: var(--primary);
+    transform: translateX(3px);
+}
+
+/* Cities Grid inside State Cards */
+.cities-directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.city-link-card {
+    background: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 16px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.city-link-card:hover {
+    background: #ffffff;
+    border-color: rgba(242, 107, 58, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(242, 107, 58, 0.06);
+}
+
+.city-name-txt {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #334155;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.city-link-card:hover .city-name-txt {
+    color: var(--accent);
+}
+
+.city-arrow-icon {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    transition: all 0.2s;
+}
+
+.city-link-card:hover .city-arrow-icon {
+    color: var(--accent);
+    transform: translateX(2px);
+}
+
+/* SEO Copywriting Segment */
+.directory-seo-content {
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 80px 0;
+}
+
+.seo-rich-copy {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.9;
+    color: #475569;
+    font-size: 1.05rem;
+}
+
+.seo-rich-copy h2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 35px;
+    margin-bottom: 18px;
+    font-size: 1.8rem;
+}
+
+.seo-rich-copy h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #1e293b;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.seo-rich-copy ul, .seo-rich-copy ol {
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+
+.seo-rich-copy li {
+    margin-bottom: 8px;
+}
+
+.icon-box-feature {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 25px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.icon-box-feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+    border-color: var(--primary);
+}
+
+.feature-icon-container {
+    width: 50px;
+    height: 50px;
+    background: rgba(242, 107, 58, 0.08);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.feature-icon-container.blue {
+    background: rgba(79, 70, 229, 0.08);
+    color: var(--primary);
+}
+
+.feature-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.feature-desc {
+    font-size: 0.92rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 0;
+}

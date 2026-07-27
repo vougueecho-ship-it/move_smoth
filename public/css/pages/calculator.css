@@ -1,0 +1,591 @@
+/* ============================================
+   Move Smooth - Premium Moving Cost Calculator
+   ============================================ */
+
+/* --- Hero --- */
+.calc-hero {
+    background: linear-gradient(135deg, rgba(10, 22, 40, 0.92), rgba(23, 56, 99, 0.88)),
+                url('/images/calculator-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0 160px;
+}
+.calc-hero h1 { font-size: 2.8rem; }
+
+/* --- Calculator Container --- */
+.calc-container {
+    margin-top: -100px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+/* --- Main Calculator Card --- */
+.calc-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(10, 22, 40, 0.10);
+    overflow: hidden;
+}
+
+/* --- Step Progress Bar --- */
+.calc-progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 40px 0;
+    background: #fff;
+}
+.calc-progress-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.calc-progress-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+.calc-progress-step.active .calc-progress-num {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255,107,53,0.35);
+}
+.calc-progress-step.completed .calc-progress-num {
+    background: var(--primary);
+    color: #fff;
+}
+.calc-progress-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+.calc-progress-step.active .calc-progress-label { color: var(--accent); }
+.calc-progress-step.completed .calc-progress-label { color: var(--primary); }
+.calc-progress-line {
+    flex: 1;
+    height: 2px;
+    background: #e2e8f0;
+    min-width: 20px;
+    max-width: 50px;
+}
+
+/* --- Single Column Form Container --- */
+.calc-form-side {
+    padding: 40px 50px 50px;
+}
+
+/* --- Price Range Display (used in Step 5) --- */
+.price-range-display {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.1;
+    margin-bottom: 8px;
+}
+
+/* --- Form Steps --- */
+.calc-step { display: none; }
+.calc-step.active {
+    display: block;
+    animation: calcFadeIn 0.35s ease;
+}
+@keyframes calcFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Form Elements --- */
+.calc-step-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: rgba(255,107,53,0.08);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+.calc-step h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+.calc-step .step-desc {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-bottom: 28px;
+}
+
+.input-box {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    padding: 14px 18px;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+}
+.input-box:focus-within {
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(10,22,40,0.06);
+}
+.input-box i { color: #94a3b8; }
+.input-box input {
+    font-size: 0.95rem;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+/* --- Size Option Cards --- */
+.size-option-card {
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: #fff;
+    height: 100%;
+}
+.size-option-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(10,22,40,0.06);
+}
+.size-option-card.active {
+    border-color: var(--accent);
+    background: rgba(255,107,53,0.04);
+    box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+}
+.size-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+    transition: color 0.25s;
+}
+.size-option-card.active .size-icon { color: var(--accent); }
+
+/* --- Option Boxes (Packing/Storage) --- */
+.option-select-box {
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+.option-select-box:hover {
+    border-color: var(--primary);
+    background: #f8fafc;
+}
+.option-select-box.active {
+    border-color: var(--accent);
+    background: rgba(255,107,53,0.04);
+}
+
+/* --- Buttons --- */
+.calc-btn-next {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 13px 36px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+.calc-btn-next:hover {
+    background: #173863;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(10,22,40,0.15);
+}
+.calc-btn-submit {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+}
+.calc-btn-submit:hover {
+    background: #e55a2d;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(255,107,53,0.35);
+}
+.btn-back {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.btn-back:hover { color: var(--primary); }
+
+/* --- Responsive --- */
+@media (max-width: 991.98px) {
+    .calc-form-side {
+        padding: 30px 25px 35px;
+    }
+    .calc-progress-bar {
+        padding: 20px 20px 0;
+        gap: 4px;
+    }
+    .calc-progress-label { display: none; }
+    .price-range-display { font-size: 2.2rem; }
+    .calc-hero h1 { font-size: 2rem; }
+    .calc-hero { padding: 80px 0 140px; }
+}
+
+@media (max-width: 767.98px) {
+    .calc-form-side {
+        padding: 28px 20px 32px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .calc-form-side { padding: 24px 18px 30px; }
+    .price-range-display { font-size: 1.9rem; }
+    .calc-progress-bar { padding: 16px 14px 0; }
+    .size-option-card { padding: 18px 12px; }
+    .size-icon { font-size: 1.6rem; }
+}
+
+/* ============================================
+   SEO Content Sections Below Calculator
+   ============================================ */
+
+/* Factor Cards */
+.factor-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+.factor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(10,22,40,0.06);
+    border-color: rgba(255,107,53,0.2);
+}
+.factor-icon-box {
+    width: 52px;
+    height: 52px;
+    background: rgba(255,107,53,0.08);
+    color: var(--accent);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+/* Cost Table */
+.cost-table-card {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 6px 20px rgba(10,22,40,0.03);
+    background: #fff;
+}
+.cost-table-header {
+    background: var(--primary);
+    color: #fff;
+    padding: 20px 24px;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+.cost-table th {
+    font-weight: 800;
+    color: var(--primary);
+    background: #f8fafc;
+    padding: 16px 20px;
+}
+.cost-table td {
+    padding: 16px 20px;
+    font-weight: 500;
+    color: #475569;
+}
+
+/* Timeline */
+.timeline-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid #e2e8f0;
+    height: 100%;
+}
+.timeline-badge {
+    width: 42px;
+    height: 42px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 10px rgba(10,22,40,0.12);
+}
+
+/* Tip Cards */
+.tip-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border-left: 4px solid var(--accent);
+    box-shadow: 0 4px 16px rgba(10,22,40,0.03);
+    height: 100%;
+}
+
+/* ============================================
+   Premium SEO Section Styles
+   ============================================ */
+
+/* --- Section Badge --- */
+.section-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    background: rgba(255,107,53,0.08);
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+
+/* --- How It Works Cards --- */
+.how-it-works-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 28px;
+    border: 1px solid #e2e8f0;
+    height: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.how-it-works-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(10,22,40,0.07);
+    border-color: rgba(255,107,53,0.2);
+}
+.hiw-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary) 0%, #173863 100%);
+    color: #fff;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin: 0 auto 20px;
+}
+
+/* --- Factor Numbered Cards --- */
+.factor-num-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 28px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+.factor-num-card:hover {
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(10,22,40,0.05);
+    border-color: var(--accent);
+}
+.factor-num {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--accent) 0%, #e55a2d 100%);
+    color: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.85rem;
+}
+
+/* --- Average Cost Table --- */
+.avg-cost-table {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 6px 20px rgba(10,22,40,0.04);
+}
+.avg-cost-table thead {
+    background: linear-gradient(135deg, var(--primary) 0%, #0d2240 100%);
+}
+.avg-cost-table thead th {
+    color: #fff;
+    font-weight: 800;
+    padding: 18px 24px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+.avg-cost-table tbody td {
+    padding: 16px 24px;
+    font-weight: 500;
+    color: #475569;
+    border-color: #f1f5f9;
+    vertical-align: middle;
+}
+.avg-cost-table tbody tr:hover {
+    background: rgba(255,107,53,0.03);
+}
+.avg-cost-table tbody td strong {
+    color: var(--primary);
+}
+
+/* --- Compare Cards (Local vs Long Distance) --- */
+.compare-card {
+    padding: 36px;
+    border-radius: 20px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.compare-local {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+}
+.compare-longdist {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a33 100%);
+    border: 1px solid #fcd34d;
+}
+.compare-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+.compare-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.compare-list li {
+    padding: 8px 0;
+    font-size: 0.88rem;
+    color: #475569;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+.compare-list li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+.compare-list li:last-child { border-bottom: none; }
+
+/* --- Interlink Banner --- */
+.interlink-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, #0d2240 100%);
+    padding: 50px 0;
+}
+.interlink-pill {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s;
+}
+.interlink-pill:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.4);
+    color: #fff;
+    transform: translateY(-2px);
+}
+.interlink-pill-alt {
+    border-color: rgba(255,107,53,0.4);
+    color: rgba(255,255,255,0.8);
+}
+.interlink-pill-accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+.interlink-pill-accent:hover {
+    background: #e55a2d;
+    border-color: #e55a2d;
+}
+
+/* --- Price Result Box (in Step 5) --- */
+.price-result-box {
+    background: linear-gradient(135deg, var(--primary) 0%, #0d2240 100%);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.price-result-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 8px;
+}
+.price-result-box .price-range-display {
+    font-size: 2.4rem;
+    color: var(--accent);
+}
+.price-result-note {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 0;
+}

@@ -1,0 +1,52 @@
+.about-hero {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                url('/images/about-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 120px 0;
+    color: white;
+    text-align: center;
+}
+
+.mission-card {
+    background: white;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);
+    margin-top: -80px;
+    position: relative;
+    z-index: 10;
+    border: 1px solid #e2e8f0;
+}
+
+.value-icon {
+    width: 70px;
+    height: 70px;
+    background: #f0f9ff;
+    color: var(--primary);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+.stats-row {
+    background: var(--primary);
+    color: white;
+    padding: 80px 0;
+    margin: 80px 0;
+}
+
+.stat-item h2 { color: var(--accent); font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; }
+.stat-item p { font-weight: 600; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+
+.team-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+.team-card:hover { transform: translateY(-10px); }
+.team-img { height: 350px; object-fit: cover; }

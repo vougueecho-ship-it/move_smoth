@@ -1,0 +1,116 @@
+.blog-hero {
+    background: #f8fafc;
+    padding: 80px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.category-pill {
+    padding: 8px 20px;
+    border-radius: 99px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.category-pill:hover, .category-pill.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.blog-card {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    background: white;
+    transition: all 0.4s;
+    height: 100%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.blog-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+.blog-img-container {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+}
+
+.blog-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.blog-card:hover .blog-img {
+    transform: scale(1.1);
+}
+
+.blog-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    padding: 5px 15px;
+    border-radius: 99px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.blog-content {
+    padding: 30px;
+}
+
+.blog-title {
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+}
+
+.blog-title a {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+.blog-meta {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.featured-post {
+    border-radius: 32px;
+    background: var(--primary);
+    color: white;
+    padding: 60px;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-tag {
+    background: var(--accent);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 99px;
+    font-weight: 800;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+    display: inline-block;
+}

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://movesmoth.com/sitemap.xml
+
+User-agent: AI-Agent
+Allow: /llms.txt
