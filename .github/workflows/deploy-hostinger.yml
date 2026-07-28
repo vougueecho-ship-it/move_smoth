@@ -32,6 +32,20 @@ jobs:
           npm ci
           npm run build
 
+      - name: Prepare FTP target path
+        id: ftp-path
+        run: |
+          path="${{ secrets.FTP_REMOTE_PATH }}"
+          if [ -z "$path" ]; then
+            echo "FTP_REMOTE_PATH secret is empty"
+            exit 1
+          fi
+          case "$path" in
+            */) ;;
+            *) path="${path}/" ;;
+          esac
+          echo "dir=$path" >> "$GITHUB_OUTPUT"
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -39,7 +53,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: ${{ secrets.FTP_REMOTE_PATH }}
+          server-dir: ${{ steps.ftp-path.outputs.dir }}
           exclude: |
             **/.git*
             **/.github/**
