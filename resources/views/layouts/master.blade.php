@@ -135,7 +135,7 @@
             <div class="container position-relative z-index-1">
                 <div class="row align-items-center">
                     <div class="col-lg-5 text-white mb-4 mb-lg-0">
-                        <h2 class="fw-800 mb-3" style="color: white;">Get Your Free Moving Quote</h2>
+                        <div class="fw-800 mb-3" style="color: white; font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.2;">Get Your Free Moving Quote</div>
                         <p class="opacity-75 mb-0">Enter your zip codes and we'll connect you with the best movers in your area. Fast, free, no obligation.</p>
                     </div>
                     <div class="col-lg-7">
@@ -178,7 +178,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content border-0 shadow-xl">
                 <div class="modal-header border-bottom-0 pb-0 pt-4 px-4 d-flex justify-content-between align-items-center">
-                    <h5 class="modal-title fw-900 text-primary fs-3"><i class="fas fa-calculator text-accent me-2"></i>Get Your Free Quote</h5>
+                    <div class="modal-title fw-900 text-primary fs-3"><i class="fas fa-calculator text-accent me-2"></i>Get Your Free Quote</div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body px-4 py-3">
@@ -936,7 +936,8 @@
             height: 100%;
             object-fit: contain;
         }
-        .movesmooth-chat-header-text h3 {
+        .movesmooth-chat-header-text h3,
+        .movesmooth-chat-assistant-title {
             margin: 0;
             font-size: 0.95rem;
             font-weight: 700;
@@ -1173,7 +1174,7 @@
                     <img src="{{ asset('images/favicon.png') }}" alt="MoveSmooth Icon">
                 </div>
                 <div class="movesmooth-chat-header-text">
-                    <h3>MoveSmooth Assistant</h3>
+                    <div class="movesmooth-chat-assistant-title">Move Smooth Assistant</div>
                     <p><span class="movesmooth-chat-live-dot"></span> Live AI Assistant</p>
                 </div>
             </div>
@@ -1192,7 +1193,7 @@
                 <i class="fas fa-paper-plane"></i>
             </button>
         </div>
-        <div class="movesmooth-chat-powered">AI-powered by MoveSmooth © 2026</div>
+        <div class="movesmooth-chat-powered">AI-powered by Move Smooth © 2026</div>
     </div>
 
     <script>

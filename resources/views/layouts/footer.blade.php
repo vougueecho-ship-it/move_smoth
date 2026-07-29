@@ -19,17 +19,11 @@
                     <a href="mailto:contact@movesmooth.com">contact@movesmooth.com</a>
                     <!--/email_off-->
                 </p>
-                <div class="d-flex gap-2">
-                    <a href="#" aria-label="Facebook" class="btn rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter" class="btn rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram" class="btn rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn" class="btn rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);"><i class="fab fa-linkedin-in"></i></a>
-                </div>
             </div>
 
             <!-- Services -->
             <div class="col-lg-2 col-md-4 col-6">
-                <h3 class="footer-heading">Services</h3>
+                <div class="footer-heading">Services</div>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="{{ route('front.service.local') }}">Local Moving</a></li>
                     <li class="mb-2"><a href="{{ route('front.service.long') }}">Long Distance</a></li>
@@ -42,7 +36,7 @@
 
             <!-- Company -->
             <div class="col-lg-2 col-md-4 col-6">
-                <h3 class="footer-heading">Company</h3>
+                <div class="footer-heading">Company</div>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="{{ route('front.about') }}">About Us</a></li>
                     <li class="mb-2"><a href="{{ route('front.contact') }}">Contact Us</a></li>
@@ -55,7 +49,7 @@
 
             <!-- Quick Quote -->
             <div class="col-lg-4 col-md-4">
-                <h3 class="footer-heading">Get a Free Quote</h3>
+                <div class="footer-heading">Get a Free Quote</div>
                 <p style="color: rgba(255,255,255,0.75); font-size: 0.88rem; margin-bottom: 1rem;">
                     Enter your locations to get started with a free moving estimate.
                 </p>

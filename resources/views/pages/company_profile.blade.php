@@ -36,6 +36,70 @@
 @section('schema')
 @php
     $approvedReviews = $company->reviews()->where('status', 'approved')->latest()->get();
+    $schemaCity = trim((string) ($company->city ?? ''));
+    $schemaStateCode = trim((string) ($company->state->code ?? ''));
+    $schemaStateName = trim((string) ($company->state->name ?? ''));
+    $schemaStreet = trim((string) ($company->address_line1 ?? ''));
+    $schemaZipDigits = preg_replace('/\D+/', '', (string) ($company->zip ?? ''));
+
+    if ($schemaZipDigits === '' && preg_match('/\b(\d{4,5})(?:-\d{4})?\b/', $schemaStreet, $zipMatch)) {
+        $schemaZipDigits = $zipMatch[1];
+    }
+
+    $schemaPostalCode = $schemaZipDigits !== ''
+        ? str_pad(substr($schemaZipDigits, -5), 5, '0', STR_PAD_LEFT)
+        : '';
+
+    $schemaStreetClean = $schemaStreet;
+    if ($schemaCity !== '') {
+        $schemaStreetClean = preg_replace('/,?\s*' . preg_quote($schemaCity, '/') . '\b.*$/i', '', $schemaStreetClean) ?? $schemaStreetClean;
+    }
+    if ($schemaStateCode !== '') {
+        $schemaStreetClean = preg_replace('/,?\s*' . preg_quote($schemaStateCode, '/') . '\b.*$/i', '', $schemaStreetClean) ?? $schemaStreetClean;
+    }
+    $schemaStreetClean = preg_replace('/,?\s*\d{4,5}(?:-\d{4})?\s*$/', '', $schemaStreetClean) ?? $schemaStreetClean;
+    $schemaStreetClean = trim($schemaStreetClean, " ,");
+    if ($schemaStreetClean === '') {
+        $schemaStreetClean = $schemaStreet !== '' ? $schemaStreet : 'Address on file';
+    }
+
+    $displayAddressParts = array_values(array_filter([
+        $schemaStreetClean !== 'Address on file' ? $schemaStreetClean : null,
+        $schemaCity,
+        trim(($schemaStateName ?: $schemaStateCode) . ($schemaPostalCode ? ' ' . $schemaPostalCode : '')),
+    ]));
+    $displayFullAddress = implode(', ', $displayAddressParts);
+
+    $profileFaqs = [
+        [
+            'q' => 'Is ' . $company->name . ' a licensed moving company?',
+            'a' => $company->name . ' should maintain the required licenses and operating authority for the services it provides. Customers should verify the company\'s current licensing and insurance information before booking a move.',
+        ],
+        [
+            'q' => 'What moving services does ' . $company->name . ' offer?',
+            'a' => $company->name . ' may offer local moving, long-distance moving, residential moving, commercial moving, packing, unpacking, and storage services. Contact the company directly to confirm the services available for your move.',
+        ],
+        [
+            'q' => 'How much does ' . $company->name . ' charge?',
+            'a' => 'Moving costs vary based on factors such as distance, home size, moving date, and additional services. Request a free moving quote for pricing tailored to your move.',
+        ],
+        [
+            'q' => 'Are the reviews for ' . $company->name . ' verified?',
+            'a' => 'The reviews displayed on our website go through our review verification process to improve accuracy and help customers make informed moving decisions.',
+        ],
+        [
+            'q' => 'Does ' . $company->name . ' provide storage solutions?',
+            'a' => 'Storage options may vary depending on the company\'s services. Contact ' . $company->name . ' to check the availability of short-term or long-term storage.',
+        ],
+        [
+            'q' => 'Is moving insurance available?',
+            'a' => 'Most moving companies offer basic valuation coverage, and some may provide additional protection options. Ask ' . $company->name . ' about the coverage available for your move.',
+        ],
+        [
+            'q' => 'How can I request a quote from ' . $company->name . '?',
+            'a' => 'You can request a free moving quote by contacting the company directly or by using the quote request form on our website. Providing accurate move details helps you receive a more accurate estimate.',
+        ],
+    ];
 @endphp
 <!-- Moving Company Local Business Schema -->
 <script type="application/ld+json">
@@ -48,13 +112,32 @@
     "telephone": "{{ $company->phone ?: '+1 406 505 9198' }}",
     "email": "{{ $company->email ?: 'contact@movesmooth.com' }}",
     "url": "{{ url()->current() }}",
+    "author": {
+        "@@type": "Organization",
+        "name": "Move Smooth"
+    },
     "address": {
         "@@type": "PostalAddress",
-        "streetAddress": "{{ addslashes($company->address_line1 ?: '5900 Balcones Drive STE 100') }}",
-        "addressLocality": "{{ addslashes($company->city) }}",
-        "addressRegion": "{{ $company->state->code ?? '' }}",
-        "postalCode": "{{ $company->zip }}",
+        "streetAddress": "{{ addslashes($schemaStreetClean) }}",
+        "addressLocality": "{{ addslashes($schemaCity) }}",
+        "addressRegion": "{{ $schemaStateCode }}",
+        "postalCode": "{{ $schemaPostalCode }}",
         "addressCountry": "US"
+    },
+    "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "{{ $company->phone ?: '+1 406 505 9198' }}",
+        "contactType": "Customer service",
+        "email": "{{ $company->email ?: 'contact@movesmooth.com' }}",
+        "url": "{{ url()->current() }}",
+        "address": {
+            "@@type": "PostalAddress",
+            "streetAddress": "{{ addslashes($schemaStreetClean) }}",
+            "addressLocality": "{{ addslashes($schemaCity) }}",
+            "addressRegion": "{{ $schemaStateCode }}",
+            "postalCode": "{{ $schemaPostalCode }}",
+            "addressCountry": "US"
+        }
     }
     @if($approvedReviews->count() > 0)
     ,"aggregateRating": {
@@ -68,7 +151,7 @@
             "@@type": "Review",
             "author": {
                 "@@type": "Person",
-                "name": "{{ addslashes($review->name) }}"
+                "name": "{{ addslashes($review->name ?: 'Verified Customer') }}"
             },
             "datePublished": "{{ $review->created_at->toIso8601String() }}",
             "reviewBody": "{{ addslashes(strip_tags($review->comment)) }}",
@@ -93,11 +176,15 @@
     "@@type": "Product",
     "@@id": "{{ url()->current() }}#product",
     "name": "Professional Moving Service by {{ addslashes($company->name) }}",
-    "description": "Licensed local and long-distance moving and relocation services by {{ addslashes($company->name) }} in {{ addslashes($company->city) }}, {{ $company->state->code ?? '' }}.",
+    "description": "Licensed local and long-distance moving and relocation services by {{ addslashes($company->name) }} in {{ addslashes($schemaCity) }}, {{ $schemaStateCode }}.",
     "image": "{{ $company->logo_url ?: asset('images/logo.png') }}",
     "brand": {
         "@@type": "Brand",
         "name": "{{ addslashes($company->name) }}"
+    },
+    "author": {
+        "@@type": "Organization",
+        "name": "Move Smooth"
     }
     @if($approvedReviews->count() > 0)
     ,"aggregateRating": {
@@ -113,7 +200,7 @@
             "@@type": "Review",
             "author": {
                 "@@type": "Person",
-                "name": "{{ addslashes($review->name) }}"
+                "name": "{{ addslashes($review->name ?: 'Verified Customer') }}"
             },
             "datePublished": "{{ $review->created_at->toIso8601String() }}",
             "reviewBody": "{{ addslashes(strip_tags($review->comment)) }}",
@@ -171,22 +258,16 @@
     "@@context": "https://schema.org",
     "@@type": "FAQPage",
     "mainEntity": [
+        @foreach($profileFaqs as $faq)
         {
             "@@type": "Question",
-            "name": "Why Choose {{ addslashes($company->name) }}?",
+            "name": "{{ addslashes($faq['q']) }}",
             "acceptedAnswer": {
                 "@@type": "Answer",
-                "text": "If you are planning a move in {{ addslashes($company->city) }}, {{ addslashes($company->state->name ?? '') }}, choosing a licensed operator is crucial. {{ addslashes($company->name) }} is fully verified with USDOT #: {{ $company->dot_number ?: 'Active Status' }}, which ensures they follow strict federal transport safety regulations."
+                "text": "{{ addslashes($faq['a']) }}"
             }
-        },
-        {
-            "@@type": "Question",
-            "name": "How much does a move cost with {{ addslashes($company->name) }}?",
-            "acceptedAnswer": {
-                "@@type": "Answer",
-                "text": "Moving costs vary based on distance, weight, and home size. To get an accurate estimate, use the quick quote form on the right. You will receive a direct, free, and no-obligation estimate from {{ addslashes($company->name) }}'s dispatch desk."
-            }
-        }
+        }@if(!$loop->last),@endif
+        @endforeach
     ]
 }
 </script>
@@ -293,6 +374,26 @@
         border-radius: 50px;
         text-transform: uppercase;
         letter-spacing: 0.4px;
+    }
+    .cp-claim-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        padding: 8px 16px;
+        border: 1.5px solid rgba(96, 165, 250, 0.85);
+        border-radius: 8px;
+        background: rgba(255,255,255,0.96);
+        color: #111827;
+        font-size: 0.88rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .cp-claim-btn:hover {
+        background: #eff6ff;
+        border-color: #3b82f6;
+        color: #0f172a;
     }
     .cp-hero-meta {
         color: rgba(255,255,255,0.65);
@@ -616,7 +717,8 @@
         color: var(--cp-success); font-size: 1.3rem;
         flex-shrink: 0;
     }
-    .cp-compliance-badge h4 { margin: 0; font-weight: 700; font-size: 0.95rem; color: var(--cp-text); }
+    .cp-compliance-badge h4,
+    .cp-compliance-badge .fw-bold { margin: 0; font-weight: 700; font-size: 0.95rem; color: var(--cp-text); }
     .cp-compliance-badge p { margin: 2px 0 0; font-size: 0.8rem; color: var(--cp-text-muted); }
 
     .cp-license-grid {
@@ -891,9 +993,15 @@
                     <span class="cp-verified-tag"><i class="fas fa-shield-alt"></i> Verified</span>
                 </div>
 
+                @if(!$company->is_claimed)
+                    <div class="mb-2">
+                        <a href="{{ route('register.company', ['company' => $company->slug]) }}" class="cp-claim-btn">Claim Business?</a>
+                    </div>
+                @endif
+
                 <p class="cp-hero-meta mb-0">
                     <i class="fas fa-map-marker-alt"></i>
-                    {{ $company->address_line1 ?: 'Verified Address' }}, {{ $company->city }}, {{ $company->state->name ?? '' }} {{ $company->zip }}
+                    {{ $displayFullAddress ?: 'Verified Address' }}
                 </p>
 
                 <div class="cp-hero-rating">
@@ -913,7 +1021,7 @@
                             @endif
                         @endfor
                     </span>
-                    <span class="count">({{ $heroCount }} reviews)</span>
+                    <span class="count">({{ $heroCount }} {{ $heroCount === 1 ? 'review' : 'reviews' }})</span>
                     @if($company->dot_number)
                         <span class="count" style="border-left: 1px solid rgba(255,255,255,0.15); padding-left: 10px;">
                             USDOT #: <strong>{{ $company->dot_number }}</strong>
@@ -1073,10 +1181,10 @@
                         @forelse($approvedReviews as $review)
                             <div class="cp-review-item">
                                 <div class="d-flex gap-3 align-items-start">
-                                    <div class="cp-review-avatar">{{ strtoupper(substr($review->name, 0, 1)) }}</div>
+                                    <div class="cp-review-avatar">{{ strtoupper(substr($review->name ?: 'V', 0, 1)) }}</div>
                                     <div class="flex-grow-1">
                                         <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                                            <span class="cp-review-name">{{ $review->name }}</span>
+                                            <span class="cp-review-name">{{ $review->name ?: 'Verified Customer' }}</span>
                                             <span class="cp-review-verified"><i class="fas fa-check-circle"></i> Verified</span>
                                         </div>
                                         <div class="d-flex flex-wrap align-items-center gap-3">
@@ -1222,7 +1330,7 @@
                     <div class="cp-compliance-badge">
                         <div class="cp-compliance-badge-icon"><i class="fas fa-shield-alt"></i></div>
                         <div class="text-start">
-                            <h4>FMCSA Certification Seal</h4>
+                            <div class="fw-bold" style="font-size: 1.05rem; color: var(--cp-primary); margin-bottom: 4px;">FMCSA Certification Seal</div>
                             <p>This operator maintains an <strong>Active Status</strong> under federal carrier licensing protocols. Authorized to transport household goods across interstate corridors.</p>
                         </div>
                     </div>
@@ -1269,35 +1377,17 @@
                     <p class="cp-section-subtitle">Common questions about {{ $company->name }} moving services.</p>
 
                     <div class="cp-faq-list">
-                        <div class="cp-faq-item open">
+                        @foreach($profileFaqs as $faq)
+                        <div class="cp-faq-item {{ $loop->first ? 'open' : '' }}">
                             <button class="cp-faq-question" type="button" onclick="toggleFaq(this)">
-                                <span>Why Choose {{ $company->name }}?</span>
+                                <span>{{ $faq['q'] }}</span>
                                 <i class="fas fa-chevron-down faq-arrow"></i>
                             </button>
                             <div class="cp-faq-answer">
-                                <p>If you are planning a move in {{ $company->city }}, {{ $company->state->name ?? '' }}, choosing a licensed operator is crucial. {{ $company->name }} is fully verified with USDOT #: {{ $company->dot_number ?: 'Active Status' }}, which ensures they follow strict federal transport safety regulations.</p>
+                                <p>{{ $faq['a'] }}</p>
                             </div>
                         </div>
-
-                        <div class="cp-faq-item">
-                            <button class="cp-faq-question" type="button" onclick="toggleFaq(this)">
-                                <span>How much does a move cost with {{ $company->name }}?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
-                            </button>
-                            <div class="cp-faq-answer">
-                                <p>Moving costs vary based on distance, weight, and home size. To get an accurate estimate, use the quick quote form above. You will receive a direct, free, and no-obligation estimate from {{ $company->name }}'s dispatch desk.</p>
-                            </div>
-                        </div>
-
-                        <div class="cp-faq-item">
-                            <button class="cp-faq-question" type="button" onclick="toggleFaq(this)">
-                                <span>Is {{ $company->name }} licensed and insured?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
-                            </button>
-                            <div class="cp-faq-answer">
-                                <p>Yes, {{ $company->name }} is a fully licensed and insured moving company. They maintain an active status with the FMCSA and carry comprehensive liability coverage to protect your belongings during transit.</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -1310,18 +1400,18 @@
                     <!-- Trust Card -->
                     <div class="cp-trust-card">
                         <div class="cp-trust-icon"><i class="fas fa-user-shield"></i></div>
-                        <h4>MoveSmooth Quality Lock</h4>
+                        <div class="fw-bold" style="font-size: 1.05rem; color: var(--cp-primary); margin-bottom: 6px;">Move Smooth Quality Lock</div>
                         <p>This operator is fully covered under our customer satisfaction safety guarantee.</p>
                     </div>
 
                     <!-- Contact Card -->
                     <div class="cp-contact-card">
-                        <h5 style="font-weight: 700; font-size: 0.95rem; color: var(--cp-primary); margin-bottom: 12px;">
+                        <h3 style="font-weight: 700; font-size: 0.95rem; color: var(--cp-primary); margin-bottom: 12px;">
                             <i class="fas fa-address-card" style="color: var(--cp-accent); margin-right: 6px;"></i> Company Details
-                        </h5>
+                        </h3>
                         <div class="cp-contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>{{ $company->city }}, {{ $company->state->name ?? '' }} {{ $company->zip }}</span>
+                            <span>{{ $displayFullAddress ?: (($company->city ?: '') . ($company->state->name ? ', ' . $company->state->name : '')) }}</span>
                         </div>
                         @if($company->phone)
                         <div class="cp-contact-item">
