@@ -12,4 +12,15 @@ class Blog extends Model
     public function category() { return $this->belongsTo(BlogCategory::class, 'category_id'); }
     public function user() { return $this->belongsTo(User::class); }
     public function faqs() { return $this->hasMany(BlogFaq::class); }
+
+    public function getFeaturedImageUrlAttribute(): string
+    {
+        if ($this->featured_image && file_exists(public_path('storage/' . $this->featured_image))) {
+            return asset('storage/' . $this->featured_image);
+        }
+        if ($this->featured_image) {
+            return asset('storage/' . $this->featured_image);
+        }
+        return asset('images/house-property.jpg');
+    }
 }

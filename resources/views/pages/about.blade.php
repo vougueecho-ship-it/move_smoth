@@ -174,8 +174,47 @@
             <p>Every year, millions of Americans pack up their lives to move across cities, states, and the entire continent. Whether it is a student relocating to a new college dorm, a family upgrading to their dream suburban home, or a commercial enterprise transferring its corporate headquarters, the physical relocation of goods represents a crucial developmental step. However, the moving industry has historically operated with a low level of transparency. Rogue operators, operating under fake business names without proper USDOT registrations, routinely trick consumers by offering suspiciously cheap online estimates, only to hold their furniture hostage for thousands of dollars in extra fees upon delivery.</p>
             <p>Furthermore, standard consumer review systems are frequently manipulated. Independent moving brokers—who do not own any trucks or hire any moving crews—pose as actual carriers, contracting out jobs to local crews with poor safety records. This structural complexity leaves consumers overwhelmed, unable to differentiate between a legally compliant, insured moving carrier and an unauthorized paper broker. Move Smooth was designed specifically to dismantle this lack of transparency.</p>
 
-            <h2>2. The Move Smooth Solution</h2>
-            <p>We believe that absolute transparency is the only cure for relocation stress. To accomplish this, we developed a digital platform that serves as a single, verified directory and interactive comparison engine. We do not operate trucks ourselves, nor do we act as a broker taking a cut of your moving contract. Instead, we act as a secure information bridge and verification protocol.</p>
+            <h2>2. The Move Smooth Solution & Brand Philosophy</h2>
+            <p>We believe that absolute transparency is the only cure for relocation stress. To accomplish this, we developed a digital platform that serves as a single, verified directory and interactive comparison engine. We define our brand through our core <strong>S.M.O.T.H.</strong> values:</p>
+            
+            <div class="row g-3 my-4">
+                <div class="col-md">
+                    <div class="value-card text-center h-100 p-3">
+                        <div class="h2 fw-900 text-accent mb-1">S</div>
+                        <h6 class="fw-bold text-primary mb-1">Smart</h6>
+                        <p class="extra-small text-muted mb-0">Tech-driven AI calculators & ZIP tools</p>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="value-card text-center h-100 p-3">
+                        <div class="h2 fw-900 text-accent mb-1">M</div>
+                        <h6 class="fw-bold text-primary mb-1">Modern</h6>
+                        <p class="extra-small text-muted mb-0">Efficient relocation & real-time quotes</p>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="value-card text-center h-100 p-3">
+                        <div class="h2 fw-900 text-accent mb-1">O</div>
+                        <h6 class="fw-bold text-primary mb-1">Optimized</h6>
+                        <p class="extra-small text-muted mb-0">Budget-friendly & transparent rates</p>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="value-card text-center h-100 p-3">
+                        <div class="h2 fw-900 text-accent mb-1">T</div>
+                        <h6 class="fw-bold text-primary mb-1">Trusted</h6>
+                        <p class="extra-small text-muted mb-0">100% FMCSA & USDOT verified</p>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="value-card text-center h-100 p-3">
+                        <div class="h2 fw-900 text-accent mb-1">H</div>
+                        <h6 class="fw-bold text-primary mb-1">Honest</h6>
+                        <p class="extra-small text-muted mb-0">Zero hidden fees or surprises</p>
+                    </div>
+                </div>
+            </div>
+
             <p>Our engineering team created a backend system that synchronizes directly with the **Federal Motor Carrier Safety Administration (FMCSA)** database. When a mover registers on our platform or is searched by a user, our system pulls their active registration records, insurance status, safety performance scores, and USDOT numbers. This allows users to check the credentials of over a thousand local and interstate movers in real-time, eliminating the risk of hiring rogue operators.</p>
 
             <h2>3. Our Core Pillars of Operation</h2>

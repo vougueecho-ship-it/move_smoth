@@ -544,7 +544,7 @@
                                 @endfor
                             </div>
                             <div class="fw-bold text-primary mb-3" style="font-size: 0.9rem;">
-                                {{ $ratingVal }} (MGM Rating)
+                                {{ $ratingVal }} (Move Smooth Rating)
                             </div>
                             
                             <hr style="width: 100%; border-color: #e2e8f0;" class="my-2">

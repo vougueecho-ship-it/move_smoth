@@ -25,6 +25,16 @@ Route::redirect('/blog/how-much-does-it-cost-to-move-2026', '/moving-costs/how-m
 Route::redirect('/blog/how-to-get-accurate-moving-quotes-2026', '/moving-tips/how-to-get-accurate-moving-quotes-and-avoid-being-overcharged', 301);
 Route::redirect('/how-to-avoid-moving-scams', '/moving-tips/how-to-get-accurate-moving-quotes-and-avoid-being-overcharged', 301);
 Route::redirect('/how-to-choose-a-mover', '/blogs?category=moving-tips', 301);
+Route::redirect('/movers/georgia/athens', '/movers/ga/athens', 301);
+Route::redirect('/movers/georgia/columbus', '/movers/ga/columbus', 301);
+Route::redirect('/movers/georgia/macon', '/movers/ga/macon', 301);
+Route::redirect('/movers/washington/bellevue', '/movers/wa/bellevue', 301);
+Route::redirect('/movers/washington/redmond', '/movers/wa/redmond', 301);
+Route::redirect('/movers/ny/new-york', '/movers/ny/new-york-city', 301);
+Route::redirect('/movers/ny/movers-in-new-york-city', '/movers/ny/new-york-city', 301);
+Route::redirect('/movers/dc', '/movers/district-of-columbia', 301);
+Route::redirect('/movers/washington-dc', '/movers/district-of-columbia', 301);
+Route::redirect('/movers/movers/{path}', '/movers/{path}', 301)->where('path', '.*');
 
 // Listing Pages
 Route::get('/movers', [SiteController::class, 'moversDirectory'])->name('front.movers.directory');

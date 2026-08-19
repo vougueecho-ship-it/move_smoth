@@ -537,7 +537,8 @@
                         <li><strong>Truck size</strong> — Sized properly for your inventory</li>
                         <li><strong>Packing services</strong> — Optional full or partial pack</li>
                     </ul>
-                    <p class="text-muted small mt-3 mb-0">Our moving estimate calculator can help determine expected local moving expenses.</p>
+                    <p class="text-muted small mt-3 mb-3">Our moving estimate calculator can help determine expected local moving expenses.</p>
+                    <a href="{{ route('front.service.local') }}" class="btn btn-sm btn-outline-primary fw-bold"><i class="fas fa-city me-1"></i> Explore Local Movers</a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -552,7 +553,11 @@
                         <li><strong>Storage needs</strong> — Temporary transit warehousing</li>
                         <li><strong>Additional services</strong> — Custom crating, stairs, long carries</li>
                     </ul>
-                    <p class="text-muted small mt-3 mb-0">Use our moving quote calculator to estimate interstate moving expenses.</p>
+                    <p class="text-muted small mt-3 mb-3">Use our moving quote calculator to estimate interstate moving expenses.</p>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a href="{{ route('front.service.long') }}" class="btn btn-sm btn-outline-primary fw-bold"><i class="fas fa-truck-moving me-1"></i> Long Distance Movers</a>
+                        <a href="{{ route('front.service.commercial') }}" class="btn btn-sm btn-outline-accent fw-bold" style="border-color: var(--accent); color: var(--accent);"><i class="fas fa-building me-1"></i> Corporate & Commercial Movers</a>
+                    </div>
                 </div>
             </div>
         </div>

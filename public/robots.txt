@@ -1,6 +1,45 @@
 User-agent: *
-Allow: /
+
+Disallow: /*?*
+Disallow: /*?sort=low_to_high
+Disallow: /*?sort=high_to_low
+Disallow: /*?sort=newest
+Disallow: /*?sort=oldest
+Disallow: /*?page=*
+Disallow: /*?from=*
+Disallow: /cdn-cgi/
+Disallow: /mover/*/review
+Disallow: /contact-mover/*
+Disallow: /claim-company/*
+Disallow: /admin
+Disallow: /company/login
+Disallow: /user/login
+Disallow: /user/register
+Disallow: /add-listing
+Disallow: /mover/verification
+
 Sitemap: https://movesmoth.com/sitemap.xml
+Sitemap: https://movesmoth.com/sitemap-main.xml
+Sitemap: https://movesmoth.com/movers.sitemap.xml
+Sitemap: https://movesmoth.com/states.sitemap.xml
+Sitemap: https://movesmoth.com/cities.sitemap.xml
+Sitemap: https://movesmoth.com/blogs.sitemap.xml
+Sitemap: https://movesmoth.com/resources.sitemap.xml
+Sitemap: https://movesmoth.com/popular-route-state.sitemap.xml
+Sitemap: https://movesmoth.com/popular-route-city.sitemap.xml
+Sitemap: https://movesmoth.com/routes.sitemap.index.xml
+Sitemap: https://movesmoth.com/state-to-state-routes.sitemap.xml
+Sitemap: https://movesmoth.com/state-move-costs.sitemap.xml
+
+# AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
 
 User-agent: AI-Agent
 Allow: /llms.txt

@@ -91,28 +91,56 @@
 
     @yield('custom_styles')
 
-    <!-- Global WebPage Schema -->
+    <!-- Global WebPage & Organization Schema (YMYL & Brand Entity) -->
     <script type="application/ld+json">
     {
         "@@context": "https://schema.org",
-        "@@type": "WebPage",
-        "@@id": "{{ url()->current() }}#webpage",
-        "url": "{{ url()->current() }}",
-        "name": "@yield('title', 'Move Smooth | Local & Long Distance Moving Company')",
-        "description": "@yield('meta_description', 'Move Smooth offers affordable local and long-distance moving services with professional movers, fast quotes, and stress-free relocation solutions.')",
-        "isPartOf": {
-            "@@type": "WebSite",
-            "@@id": "{{ url('/') }}#website",
-            "name": "Move Smooth",
-            "url": "{{ url('/') }}"
-        },
-        "publisher": {
-            "@@type": "Organization",
-            "@@id": "{{ url('/') }}#organization",
-            "name": "Move Smooth",
-            "legalName": "LeadmotionX LLC",
-            "logo": "{{ asset('images/logo.png') }}"
-        }
+        "@@graph": [
+            {
+                "@@type": "Organization",
+                "@@id": "https://movesmoth.com/#organization",
+                "name": "Move Smoth",
+                "alternateName": "Move Smooth",
+                "url": "https://movesmoth.com",
+                "logo": {
+                    "@@type": "ImageObject",
+                    "url": "{{ asset('images/logo.png') }}",
+                    "caption": "Move Smoth Logo"
+                },
+                "description": "Move Smoth is a high-authority moving directory simplifying the relocation process through verified FMCSA/USDOT data and smart moving cost tools.",
+                "contactPoint": {
+                    "@@type": "ContactPoint",
+                    "telephone": "+1 406 505 9198",
+                    "contactType": "customer service",
+                    "email": "contact@movesmooth.com",
+                    "areaServed": "US",
+                    "availableLanguage": "en"
+                }
+            },
+            {
+                "@@type": "WebSite",
+                "@@id": "https://movesmoth.com/#website",
+                "url": "https://movesmoth.com",
+                "name": "Move Smoth",
+                "description": "Find top-rated, licensed, and verified moving companies across the United States.",
+                "publisher": {
+                    "@@id": "https://movesmoth.com/#organization"
+                }
+            },
+            {
+                "@@type": "WebPage",
+                "@@id": "{{ url()->current() }}#webpage",
+                "url": "{{ url()->current() }}",
+                "name": "@yield('title', 'Move Smooth | Local & Long Distance Moving Company')",
+                "description": "@yield('meta_description', 'Move Smooth offers affordable local and long-distance moving services with professional movers, fast quotes, and stress-free relocation solutions.')",
+                "isPartOf": {
+                    "@@id": "https://movesmoth.com/#website"
+                },
+                "about": {
+                    "@@id": "https://movesmoth.com/#organization"
+                }
+            }
+        ]
     }
     </script>
 

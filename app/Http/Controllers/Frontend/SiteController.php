@@ -83,11 +83,22 @@ class SiteController extends Controller
 
     public function stateMovers($state)
     {
-        $stateModel = State::where('slug', $state)
-            ->orWhere('code', strtoupper($state))
+        $stateClean = strtolower(trim($state));
+
+        // Direct aliases
+        $aliasMap = [
+            'dc' => 'district-of-columbia',
+            'washington-dc' => 'district-of-columbia',
+        ];
+        if (isset($aliasMap[$stateClean])) {
+            return redirect()->route('front.state.movers', $aliasMap[$stateClean], 301);
+        }
+
+        $stateModel = State::where('slug', $stateClean)
+            ->orWhere('code', strtoupper($stateClean))
             ->first();
 
-        if (!$stateModel || !$stateModel->is_active || empty($stateModel->content)) {
+        if (!$stateModel || !$stateModel->is_active) {
             // Fallback check: If the URL is actually a company profile slug requested under movers/ prefix
             $company = Company::where('slug', $state)->where('is_active', true)->first();
             if ($company) {
@@ -96,9 +107,16 @@ class SiteController extends Controller
             abort(404);
         }
 
-        // If the URL contains the 2-letter state code or wrong casing, redirect to the lowercase slug
-        if (strlen($state) === 2 || $state !== strtolower($stateModel->slug)) {
-            return redirect()->route('front.state.movers', strtolower($stateModel->slug), 301);
+        // Canonical slug redirect (e.g. /movers/in -> /movers/indiana, /movers/ct -> /movers/connecticut)
+        $canonicalSlug = strtolower($stateModel->slug ?: \Illuminate\Support\Str::slug($stateModel->name));
+        if ($state !== $canonicalSlug) {
+            return redirect()->route('front.state.movers', $canonicalSlug, 301);
+        }
+
+        // Automated fallback guide content if empty
+        if (empty($stateModel->content)) {
+            $stateModel->content = '<p>Planning a relocation in <strong>' . htmlspecialchars($stateModel->name) . '</strong>? Move Smooth simplifies your moving journey by connecting you directly with licensed, insured, and background-checked moving companies across ' . htmlspecialchars($stateModel->name) . '.</p>'
+                . '<p>Whether you need full-service packing, hourly local helpers, or cross-country interstate transport, our verified partners deliver transparent pricing with no hidden charges. Use our instant Moving Cost Calculator above to get binding estimates from top-rated movers serving your area.</p>';
         }
 
         $stateModelQuery = State::where('id', $stateModel->id);
@@ -196,20 +214,29 @@ class SiteController extends Controller
 
     public function cityMovers($state, $city)
     {
-        if (strlen($state) !== 2 || $state !== strtolower($state)) {
-            $stateModel = State::where('slug', $state)
-                ->orWhere('code', strtoupper($state))
-                ->firstOrFail();
-            return redirect()->route('front.city.movers', [strtolower($stateModel->code), $city], 301);
+        $stateCode = strtolower(trim($state));
+        $citySlug = strtolower(trim($city));
+
+        if (strlen($stateCode) !== 2) {
+            $stateModel = State::where('slug', $stateCode)
+                ->orWhere('code', strtoupper($stateCode))
+                ->first();
+            if ($stateModel) {
+                return redirect()->route('front.city.movers', [strtolower($stateModel->code), $citySlug], 301);
+            }
+            abort(404);
         }
 
-        if (strtolower($state) === 'ny' && ($city === 'new-york' || $city === 'new-york-city')) {
-            return redirect()->route('front.city.movers', ['ny', 'movers-in-new-york-city'], 301);
+        if ($stateCode === 'ny' && ($citySlug === 'new-york' || $citySlug === 'movers-in-new-york-city')) {
+            return redirect()->route('front.city.movers', ['ny', 'new-york-city'], 301);
         }
 
-        $stateModel = State::where('code', strtoupper($state))->firstOrFail();
+        $stateModel = State::where('code', strtoupper($stateCode))->first();
+        if (!$stateModel) {
+            abort(404);
+        }
 
-        $cityModelQuery = City::whereHas('content', fn($q) => $q->where('slug', $city))
+        $cityModelQuery = City::whereHas('content', fn($q) => $q->where('slug', $citySlug)->orWhere('slug', 'movers-in-' . $citySlug))
             ->where('state_id', $stateModel->id)
             ->with('content');
 
@@ -225,11 +252,7 @@ class SiteController extends Controller
             || !$cityModel->content->is_active
             || empty($cityModel->content->content)
         ) {
-            if ($stateModel->is_active && !empty($stateModel->content)) {
-                return redirect()->route('front.state.movers', strtolower($stateModel->slug), 301);
-            }
-
-            abort(404);
+            return redirect()->route('front.state.movers', strtolower($stateModel->slug ?: \Illuminate\Support\Str::slug($stateModel->name)), 301);
         }
 
         $topMovers = collect();
