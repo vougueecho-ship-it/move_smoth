@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Long-Distance Moving Companies — Resource Section UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F3F5F9;
+    --paper-2: #E7ECF3;
+    --ink: #14213D;
+    --ink-soft: #4B5A76;
+    --route: #1D5FA8;
+    --route-dark: #123F73;
+    --marker: #F2A93B;
+    --marker-dark: #B87D14;
+    --line: #C3CEDD;
+    --card: #FFFFFF;
+    --card-border: #DCE3EC;
+    --font-display: 'Big Shoulders Display', sans-serif;
+    --font-body: 'Source Sans 3', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    font-family:var(--font-body);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:56px 24px 80px;
+  }
+
+  /* ---------- Header ---------- */
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--route);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;
+    height:2px;
+    background:var(--marker);
+    display:inline-block;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:44px;
+    line-height:1.05;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .lede{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:640px;
+    margin:0 0 18px;
+  }
+
+  /* ---------- Byline (E-E-A-T trust) ---------- */
+  .byline{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:32px;
+    flex-wrap:wrap;
+  }
+  .byline .avatar{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:var(--route);
+    color:#fff;
+    font-family:var(--font-mono);
+    font-size:11px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .byline .dot{ color:var(--line); }
+  .byline b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- Quick answer (AEO block) ---------- */
+  .quick-answer{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-left:4px solid var(--route);
+    border-radius:6px;
+    padding:20px 24px;
+    margin-bottom:20px;
+    display:flex;
+    gap:16px;
+  }
+  .quick-answer .pin{
+    flex:0 0 auto;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:var(--route);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:14px;
+  }
+  .quick-answer .qa-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--route-dark);
+    margin:0 0 4px;
+  }
+  .quick-answer p.answer{
+    margin:0;
+    font-size:16px;
+    color:var(--ink);
+  }
+  .quick-answer p.answer b{ font-weight:600; }
+
+  /* ---------- Trust stat bar ---------- */
+  .stat-bar{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--card-border);
+    border-radius:6px;
+    overflow:hidden;
+    margin-bottom:0;
+    background:var(--card);
+  }
+  .stat{
+    padding:16px 18px;
+    border-right:1px solid var(--card-border);
+  }
+  .stat:last-child{ border-right:none; }
+  .stat .num{
+    font-family:var(--font-mono);
+    font-size:22px;
+    font-weight:600;
+    color:var(--route-dark);
+    display:block;
+  }
+  .stat .label{
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  .badge-strip{
+    display:flex;
+    gap:22px;
+    align-items:center;
+    flex-wrap:wrap;
+    padding:14px 0 40px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .badge-strip span{ opacity:.85; }
+
+  /* ---------- Section heading ---------- */
+  h2.section-h{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:26px;
+    margin:0 0 6px;
+  }
+  .section-sub{
+    color:var(--ink-soft);
+    font-size:14px;
+    margin:0 0 28px;
+  }
+
+  /* ---------- Route / ranked list ---------- */
+  .route{
+    position:relative;
+    margin-bottom:56px;
+  }
+  .route::before{
+    content:"";
+    position:absolute;
+    left:23px;
+    top:8px;
+    bottom:8px;
+    width:0;
+    border-left:2px dashed var(--line);
+  }
+  .stop{
+    position:relative;
+    padding-left:64px;
+    margin-bottom:18px;
+  }
+  .stop .pin{
+    position:absolute;
+    left:0;
+    top:0;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:var(--card);
+    border:2px solid var(--route);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:20px;
+    color:var(--route-dark);
+    z-index:1;
+  }
+  .stop:first-child .pin{
+    background:var(--marker);
+    border-color:var(--marker);
+    color:var(--marker-dark);
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:8px;
+    padding:18px 22px;
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .card-name{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:20px;
+    margin:0 0 2px;
+  }
+  .verified{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--route-dark);
+    margin-left:8px;
+  }
+  .verified::before{ content:"✓"; font-weight:700; }
+  .tag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--route-dark);
+    background:#E1EAF6;
+    padding:3px 9px;
+    border-radius:3px;
+  }
+  .rating{
+    font-family:var(--font-mono);
+    font-size:14px;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .rating b{ color:var(--marker-dark); }
+  .card-blurb{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin:10px 0 14px;
+  }
+  .card-actions{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:13.5px;
+    padding:9px 16px;
+    border-radius:5px;
+    text-decoration:none;
+    display:inline-block;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:var(--marker);
+    color:var(--marker-dark);
+    font-weight:700;
+  }
+  .btn-secondary{
+    background:transparent;
+    color:var(--route-dark);
+    border-color:var(--route);
+  }
+  .price-dots{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--line);
+    margin-left:auto;
+  }
+  .price-dots .fill{ color:var(--marker-dark); }
+
+  /* ---------- Cost table ---------- */
+  .cost-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:48px;
+  }
+  .cost-table th, .cost-table td{
+    padding:12px 16px;
+    text-align:left;
+    font-size:14px;
+    border-bottom:1px solid var(--card-border);
+  }
+  .cost-table th{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--paper-2);
+  }
+  .cost-table td.num{ font-family:var(--font-mono); color:var(--route-dark); font-weight:600; }
+  .cost-table tr:last-child td{ border-bottom:none; }
+
+  /* ---------- Tabbed tips ---------- */
+  .tabs{
+    margin-bottom:48px;
+  }
+  .tab-buttons{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+    border-bottom:1px solid var(--card-border);
+  }
+  .tab-btn{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:13.5px;
+    padding:10px 16px;
+    background:none;
+    border:none;
+    border-bottom:2px solid transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .tab-btn.active{
+    color:var(--route-dark);
+    border-bottom-color:var(--marker);
+  }
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; }
+  .tip-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .tip-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:8px;
+    padding:16px 18px;
+  }
+  .tip-card p.tip-h{
+    font-weight:600;
+    font-size:14px;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+  .tip-card p.tip-b{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ---------- Key takeaways (AEO) ---------- */
+  .takeaways{
+    background:var(--route);
+    color:#F0F4FA;
+    border-radius:8px;
+    padding:26px 28px;
+    margin-bottom:48px;
+  }
+  .takeaways h3{
+    font-family:var(--font-display);
+    font-size:20px;
+    margin:0 0 14px;
+    font-weight:700;
+  }
+  .takeaways ul{
+    margin:0;
+    padding-left:20px;
+  }
+  .takeaways li{
+    margin-bottom:9px;
+    font-size:14.5px;
+    color:#DCE6F3;
+  }
+  .takeaways li b{ color:#fff; }
+  .takeaways li:last-child{ margin-bottom:0; }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{
+    border-bottom:1px solid var(--card-border);
+  }
+  .faq-item:first-child{ border-top:1px solid var(--card-border); }
+  .faq-q{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:16px 4px;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:15px;
+    color:var(--ink);
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .faq-q .icon{
+    font-family:var(--font-mono);
+    color:var(--marker-dark);
+    font-size:18px;
+    flex:0 0 auto;
+  }
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+  }
+  .faq-a-inner{
+    padding:0 4px 16px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .faq-item.open .faq-a{ max-height:300px; }
+
+  /* ---------- Related links ---------- */
+  .related{
+    margin-top:56px;
+    padding-top:32px;
+    border-top:1px solid var(--card-border);
+  }
+  .related h3{
+    font-family:var(--font-display);
+    font-size:18px;
+    margin:0 0 16px;
+  }
+  .related-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+  .related-grid a{
+    display:block;
+    text-align:center;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:6px;
+    padding:12px 8px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--route-dark);
+    text-decoration:none;
+  }
+
+  @media (max-width:640px){
+    h1{ font-size:32px; }
+    .stat-bar{ grid-template-columns:repeat(2,1fr); }
+    .stat:nth-child(2){ border-right:none; }
+    .card-top{ flex-direction:column; }
+    .price-dots{ margin-left:0; }
+    .tip-grid{ grid-template-columns:1fr; }
+    .related-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+  .status-pill{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:3px;
+  }
+  .status-good{ background:#E1EAF6; color:var(--route-dark); }
+  .status-bad{ background:#FBE7E2; color:#A3391D; }
+  .check{ color:var(--route-dark); font-weight:700; }
+  .cross{ color:#A3391D; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Resource · Long-distance moving</div>
+  <h1>Best long-distance moving companies</h1>
+  <p class="lede">Ranked and fact-checked for interstate moves — licensing, verified pricing, and real customer outcomes.</p>
+
+  <div class="byline">
+    <div class="avatar">MS</div>
+    <span><b>Move Smooth Team</b> · Last updated Aug 2026</span>
+    <span class="dot">·</span>
+    <span>8 min read</span>
+    <span class="dot">·</span>
+    <span>✓ Fact-checked</span>
+  </div>
+
+  <div class="quick-answer">
+    <div class="pin">?</div>
+    <div>
+      <p class="qa-label">Quick answer</p>
+      <p class="answer">There's no single best mover for every move — <b>[Company A]</b> is the strongest overall pick for value and nationwide coverage, while <b>[Company B]</b> is the better fit for large households or high-value items. Your route, home size, and moving date all change the right answer.</p>
+    </div>
+  </div>
+
+  <div class="stat-bar">
+    <div class="stat"><span class="num">500+</span><span class="label">Movers vetted</span></div>
+    <div class="stat"><span class="num">[N]</span><span class="label">Point rating system</span></div>
+    <div class="stat"><span class="num">100%</span><span class="label">USDOT-verified</span></div>
+    <div class="stat"><span class="num">Aug '26</span><span class="label">Last updated</span></div>
+  </div>
+
+  <div class="badge-strip">
+    <span>FMCSA registered</span>
+    <span>BBB A+</span>
+    <span>USDOT verified</span>
+    <span>AMSA member</span>
+  </div>
+
+  <h2 class="section-h">The route: our top interstate movers</h2>
+  <p class="section-sub">Ranked by licensing, pricing transparency, and verified customer outcomes — not by who pays the most.</p>
+
+  <div class="route">
+
+    <div class="stop">
+      <div class="pin">1</div>
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <p class="card-name">[Mover Name] <span class="verified">Verified pro</span></p>
+            <span class="tag">Best overall value</span>
+          </div>
+          <span class="rating"><b>4.9</b>/5 · 859 reviews</span>
+        </div>
+        <p class="card-blurb">Flat-rate pricing confirmed by video survey, plus 30 days of free storage on every interstate move — the most predictable option if you want to lock in a number early.</p>
+        <div class="card-actions">
+          <a href="#" class="btn btn-primary">Get free quote</a>
+          <a href="#" class="btn btn-secondary">Read full review</a>
+          <span class="price-dots"><span class="fill">$$</span>$$</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="pin">2</div>
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <p class="card-name">[Mover Name] <span class="verified">Verified pro</span></p>
+            <span class="tag">Best for large homes</span>
+          </div>
+          <span class="rating"><b>4.7</b>/5 · 312 reviews</span>
+        </div>
+        <p class="card-blurb">In-house crews (no subcontracted labor) and a strong track record with antiques and high-value furniture on cross-country routes.</p>
+        <div class="card-actions">
+          <a href="#" class="btn btn-primary">Get free quote</a>
+          <a href="#" class="btn btn-secondary">Read full review</a>
+          <span class="price-dots"><span class="fill">$$$</span>$</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="pin">3</div>
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <p class="card-name">[Mover Name] <span class="verified">Verified pro</span></p>
+            <span class="tag">Best customer support</span>
+          </div>
+          <span class="rating"><b>4.6</b>/5 · 204 reviews</span>
+        </div>
+        <p class="card-blurb">24/7 support line and binding estimates that hold as long as your inventory doesn't change — useful if your dates are still moving around.</p>
+        <div class="card-actions">
+          <a href="#" class="btn btn-primary">Get free quote</a>
+          <a href="#" class="btn btn-secondary">Read full review</a>
+          <span class="price-dots"><span class="fill">$$</span>$$</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="pin">+</div>
+      <div class="card" style="text-align:center; padding:14px;">
+        <a href="#" class="btn btn-secondary" style="border:none;">See all 10 ranked movers ↓</a>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="section-h">What a long-distance move actually costs</h2>
+  <p class="section-sub">Based on home size and average interstate distance.</p>
+
+  <table class="cost-table">
+    <thead>
+      <tr><th>Home size</th><th>Average cost</th><th>Avg. distance</th><th>Delivery window</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Studio</td><td class="num">$2,184–$3,127</td><td class="num">1,000 mi</td><td>2–4 days</td></tr>
+      <tr><td>1 bedroom</td><td class="num">$2,963–$4,286</td><td class="num">1,200 mi</td><td>3–5 days</td></tr>
+      <tr><td>2 bedroom</td><td class="num">$4,118–$6,374</td><td class="num">1,400 mi</td><td>4–7 days</td></tr>
+      <tr><td>3 bedroom</td><td class="num">$6,287–$8,961</td><td class="num">1,700 mi</td><td>5–9 days</td></tr>
+      <tr><td>4+ bedroom</td><td class="num">$8,472–$13,684</td><td class="num">2,000+ mi</td><td>7–14 days</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-h">Moving advice and tips</h2>
+  <p class="section-sub">Pick a topic below.</p>
+
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showTab(this,'t1')">Choose a mover</button>
+      <button class="tab-btn" onclick="showTab(this,'t2')">Avoid scams</button>
+      <button class="tab-btn" onclick="showTab(this,'t3')">Save money</button>
+    </div>
+
+    <div class="tab-panel active" id="t1">
+      <div class="tip-grid">
+        <div class="tip-card"><p class="tip-h">Check the USDOT number</p><p class="tip-b">A licensed mover follows federal moving rules and gives you more legal protection during an interstate move.</p></div>
+        <div class="tip-card"><p class="tip-h">Read recent reviews</p><p class="tip-b">Recent reviews show how a company handles problems now — not just its overall historical rating.</p></div>
+        <div class="tip-card"><p class="tip-h">Compare at least 3 quotes</p><p class="tip-b">Multiple quotes on the same inventory list show you what a fair price actually looks like.</p></div>
+        <div class="tip-card"><p class="tip-h">Ask what's included</p><p class="tip-b">Packing, storage, and disassembly are included by some movers and billed separately by others.</p></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="t2">
+      <div class="tip-grid">
+        <div class="tip-card"><p class="tip-h">Beware unusually low quotes</p><p class="tip-b">Scam movers often quote low to win the booking, then raise the price after your items are loaded.</p></div>
+        <div class="tip-card"><p class="tip-h">Never pay a large deposit</p><p class="tip-b">Most legitimate movers don't require a large upfront payment before your move date.</p></div>
+        <div class="tip-card"><p class="tip-h">Get everything in writing</p><p class="tip-b">Your estimate, delivery window, and any extra fees should be in the contract before moving day.</p></div>
+        <div class="tip-card"><p class="tip-h">Check FMCSA's Protect Your Move</p><p class="tip-b">Search the mover's name in the federal database for unresolved complaints before booking.</p></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="t3">
+      <div class="tip-grid">
+        <div class="tip-card"><p class="tip-h">Book 4–8 weeks ahead</p><p class="tip-b">Last-minute bookings are pricier because fewer dates and trucks are available.</p></div>
+        <div class="tip-card"><p class="tip-h">Move in the off-season</p><p class="tip-b">Rates are typically lower outside the May–September peak moving season.</p></div>
+        <div class="tip-card"><p class="tip-h">Pack smaller items yourself</p><p class="tip-b">Professional packing adds labor and material costs — do the easy boxes yourself.</p></div>
+        <div class="tip-card"><p class="tip-h">Declutter before you quote</p><p class="tip-b">Cost is tied to weight and volume — selling or donating items lowers your price directly.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="takeaways">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li><b>There's no universal "best" mover</b> — the right pick depends on your home size, route, and timeline.</li>
+      <li><b>Always compare at least 3 quotes</b> and confirm whether each is binding or non-binding before you sign.</li>
+      <li><b>Verify the USDOT number</b> on the FMCSA site before booking any interstate mover.</li>
+      <li><b>Book 4–8 weeks ahead</b> — earlier during the May–September peak season.</li>
+    </ul>
+  </div>
+
+  <h2 class="section-h">Frequently asked questions</h2>
+  <div class="faq-list">
+
+    <div class="faq-item open">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How far in advance should I book long-distance movers?
+        <span class="icon">−</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">4–8 weeks before your move date is the safe window, and earlier if you're moving between May and September.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How do I know if a moving company is legitimate?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Check their USDOT number on the FMCSA database, read recent (not just overall) reviews, and get your estimate in writing before booking.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        What's the cheapest way to move long-distance?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Renting a truck and doing the labor yourself is typically cheapest. A moving container is a middle ground — you load it, the company drives.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        What is considered a long-distance move?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Most movers define it as a move that crosses state lines, or covers more than 100 miles, regardless of whether it stays in-state.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        Can moving companies raise the price after loading my items?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Only with a non-binding estimate. A binding or binding-not-to-exceed estimate protects you from this — always ask which type you're getting.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How much should I tip long-distance movers?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Tipping is optional but common for good service — a typical guideline is $20–$50 per mover for a half-day move, or $40–$100 per mover for a full day.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        Do I need separate moving insurance?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Movers are required to offer released value protection (about $0.60 per pound per item) or full value protection. Third-party moving insurance is a separate policy you can buy on top of that.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        Do long-distance movers ship cars too?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Some do, but it's not standard across the industry — many movers partner with a separate auto-transport company instead. Ask directly before assuming it's included.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        What's the difference between a moving broker and a carrier?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">A carrier owns the trucks and does the move itself. A broker arranges the move by connecting you with a carrier. Always confirm which one you're booking and get the carrier's own USDOT number.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How long does an interstate move take?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Anywhere from a few days to a few weeks, depending on distance and season. Cross-country moves often land in the 10–20 day range, especially during peak months.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        Is it cheaper to move on a weekday?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Yes — Monday through Thursday moves are typically cheaper than weekends, and pricing also spikes at the start and end of each month.</div></div>
+    </div>
+
+  </div>
+
+  <h2 class="section-h">Real customer moves booked through Move Smooth</h2>
+  <p class="section-sub">Actual cost and rating data pulled from our own verified customer reviews — not industry averages.</p>
+
+  <table class="cost-table">
+    <thead>
+      <tr><th>Mover</th><th>Move cost</th><th>State</th><th>Rating</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ASAP Moving and Hauling LLC</td><td class="num">$1,500</td><td>Ohio</td><td><b>5.0</b>/5</td></tr>
+      <tr><td>Lift With A Twist LLC</td><td class="num">$2,140</td><td>Ohio</td><td><b>5.0</b>/5</td></tr>
+      <tr><td>Vincent Fister Inc</td><td class="num">$1,500</td><td>Kentucky</td><td><b>4.0</b>/5</td></tr>
+      <tr><td>northAmerican Moving Services</td><td class="num">$2,780</td><td>Ohio</td><td><b>4.0</b>/5</td></tr>
+      <tr><td>Berea Moving &amp; Storage Co.</td><td class="num">$1,820</td><td>Ohio</td><td><b>2.0</b>/5</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-h">Red flags we've seen in real reviews</h2>
+  <p class="section-sub">Patterns pulled from our own verified customer complaints — so you know what to watch for.</p>
+
+  <table class="cost-table">
+    <thead>
+      <tr><th>Warning sign</th><th>What it looked like</th><th>Outcome</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Damaged items, no resolution</td><td>TV broken and scratched during a local move</td><td><span class="status-pill status-bad">Unresolved</span></td></tr>
+      <tr><td>Suspected intentional damage</td><td>Furniture stacked carelessly in storage, thousands in damage</td><td><span class="status-pill status-bad">Unresolved</span></td></tr>
+      <tr><td>Poor labeling / inventory</td><td>Boxes not labeled or inventoried despite otherwise fair pricing</td><td><span class="status-pill status-good">Minor</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-h">What's included by service tier</h2>
+  <p class="section-sub">Compare before you assume — not every mover bundles the same services.</p>
+
+  <table class="cost-table">
+    <thead>
+      <tr><th>Included</th><th>Basic</th><th>Standard</th><th>Full-service</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Loading &amp; transport</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+      <tr><td>Packing materials</td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+      <tr><td>Full packing service</td><td><span class="cross">✕</span></td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+      <tr><td>Furniture disassembly</td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+      <tr><td>Storage-in-transit</td><td><span class="cross">✕</span></td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="related">
+    <h3>Didn't find what you were looking for?</h3>
+    <div class="related-grid">
+      <a href="#">Moving cost calculator</a>
+      <a href="#">Compare movers</a>
+      <a href="#">Local movers</a>
+      <a href="#">Storage units</a>
+    </div>
+  </div>
+
+</div>
+<script>
+function showTab(btn, id){
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>

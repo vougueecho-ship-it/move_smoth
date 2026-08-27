@@ -220,7 +220,9 @@ class StateContentSeeder extends Seeder
         ];
 
         foreach ($statesData as $code => $data) {
+            $state = State::where('code', $code)->first();
             State::updateOrCreate(['code' => $code], [
+                'slug' => $state && $state->slug ? $state->slug : \Illuminate\Support\Str::slug($state ? $state->name : $code),
                 'heading' => $data['heading'],
                 'meta_title' => $data['meta_title'],
                 'meta_description' => $data['meta_description'],

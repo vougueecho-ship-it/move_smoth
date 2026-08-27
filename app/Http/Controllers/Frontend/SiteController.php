@@ -96,6 +96,7 @@ class SiteController extends Controller
 
         $stateModel = State::where('slug', $stateClean)
             ->orWhere('code', strtoupper($stateClean))
+            ->orWhereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [$stateClean])
             ->first();
 
         if (!$stateModel || !$stateModel->is_active) {
@@ -104,7 +105,7 @@ class SiteController extends Controller
             if ($company) {
                 return redirect()->route('front.company.profile', $company->slug, 301);
             }
-            abort(404);
+            return redirect()->route('front.movers', [], 301);
         }
 
         // Canonical slug redirect (e.g. /movers/in -> /movers/indiana, /movers/ct -> /movers/connecticut)
@@ -220,20 +221,24 @@ class SiteController extends Controller
         if (strlen($stateCode) !== 2) {
             $stateModel = State::where('slug', $stateCode)
                 ->orWhere('code', strtoupper($stateCode))
+                ->orWhereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [$stateCode])
                 ->first();
             if ($stateModel) {
                 return redirect()->route('front.city.movers', [strtolower($stateModel->code), $citySlug], 301);
             }
-            abort(404);
+            return redirect()->route('front.movers', [], 301);
         }
 
         if ($stateCode === 'ny' && ($citySlug === 'new-york' || $citySlug === 'movers-in-new-york-city')) {
             return redirect()->route('front.city.movers', ['ny', 'new-york-city'], 301);
         }
 
-        $stateModel = State::where('code', strtoupper($stateCode))->first();
+        $stateModel = State::where('code', strtoupper($stateCode))
+            ->orWhere('slug', $stateCode)
+            ->orWhereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [$stateCode])
+            ->first();
         if (!$stateModel) {
-            abort(404);
+            return redirect()->route('front.movers', [], 301);
         }
 
         $cityModelQuery = City::whereHas('content', fn($q) => $q->where('slug', $citySlug)->orWhere('slug', 'movers-in-' . $citySlug))

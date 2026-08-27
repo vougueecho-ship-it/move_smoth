@@ -89,11 +89,12 @@ class DatabaseSeeder extends Seeder
             $state = State::firstOrCreate(['code' => $sData['code']], [
                 'country_id' => $country->id,
                 'name' => $sData['name'],
+                'slug' => Str::slug($sData['name']),
                 'heading' => $isPopular ? 'Best Moving Companies in ' . $sData['name'] : null,
                 'meta_title' => $isPopular ? 'Top 10 Moving Companies in ' . $sData['name'] . ' | Reviews & Quotes' : null,
                 'meta_description' => $isPopular ? 'Compare moving companies in ' . $sData['name'] . '. View real ratings and request quotes.' : null,
                 'content' => $isPopular ? '<p>Moving to ' . $sData['name'] . ' offers a diverse range of opportunities. Our network of movers here is extensive.</p>' : null,
-                'is_active' => $isPopular,
+                'is_active' => true,
             ]);
 
             // Only seed cities and companies for active, popular states to keep seeder fast
